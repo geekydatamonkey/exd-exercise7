@@ -12,6 +12,8 @@ const π = Math.PI;
 
 let config = { 
   parent: '.canvas-wrapper',
+  bgcolor: [186/360, 0.84, 0.39].map(x => Math.floor(x*255)),
+  color: [10/360, 0.73, 0.74].map(x => Math.floor(x*255)),
 };
 
 let $canvasWrapper = $(config.parent);
@@ -27,12 +29,14 @@ function sketch(s) {
       $canvasWrapper.innerHeight()
     ).parent($canvasWrapper[0]);
 
+    s.colorMode(s.HSB);
+
     setupShapes();
 
   };
 
   s.draw = function() {
-    s.clear();
+    s.background(config.bgcolor);
 
     _.forEach(shapes, (shape) => {
       shape.update().render();
@@ -63,11 +67,13 @@ function sketch(s) {
       root: {x: s.width/2, y: s.height/2 },
       generations: 6,
       scaleFactor: 3/4,
+      strokeWeight: getRandomInt(2,4),
       leftAngle: 2*π/sides,
       rightAngle: 2*π/getRandomInt(1,12),
       rules: {
         'F' : fRuleArray.join(''),
-      }
+      },
+      color: config.color,
     };
 
     shapes.push(new Shape(conf));
