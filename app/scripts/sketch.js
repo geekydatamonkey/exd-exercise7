@@ -79,7 +79,7 @@ function sketch(s) {
     shapes.push(new Shape(conf));
   }
 
-  s.mousePressed = s.keyPressed = function() {
+  s.mousePressed = function() {
     shapes = [];
     setupShapes();
   };
